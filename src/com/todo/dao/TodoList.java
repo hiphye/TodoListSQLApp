@@ -6,7 +6,7 @@ import com.todo.service.TodoSortByDate;
 import com.todo.service.TodoSortByName;
 
 public class TodoList {
-	private List<TodoItem> list;
+	private List<TodoItem> list; //todoItem 객체들을 어레이리스트에 담아서 리스트로 관리중 
 
 	public TodoList() {
 		this.list = new ArrayList<TodoItem>();
@@ -37,7 +37,7 @@ public class TodoList {
 
 	public void listAll() {
 		System.out.println("\n"
-				+ "inside list_All method\n");
+				+ "리스트 목록\n");
 		for (TodoItem myitem : list) {
 			System.out.println(myitem.getTitle() + myitem.getDesc());
 		}
