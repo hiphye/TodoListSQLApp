@@ -43,6 +43,14 @@ public class TodoList {
 		}
 	}
 	
+	public int countAll() {
+		int i =0;
+		for (TodoItem myitem : list) {
+			i++;
+		}
+		return i;
+	}
+	
 	public void reverseList() {
 		Collections.reverse(list);
 	}
@@ -60,5 +68,9 @@ public class TodoList {
 			if (title.equals(item.getTitle())) return true;
 		}
 		return false;
+	}
+
+	public void deleteItem(int i) {
+		list.remove(i);
 	}
 }
