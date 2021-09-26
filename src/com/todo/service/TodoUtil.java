@@ -64,11 +64,7 @@ public class TodoUtil {
 		String key = sc.next();
 		int i =0;
 		for (TodoItem item : l.getList()) {
-			if (key.contains(item.getTitle())) {
-				System.out.println((l.indexOf(item)+1)+". "+"[ " + item.getCategory() +" ] : "+ item.getTitle()+" - "+ item.getDesc() +" - "+ item.getCurrent_date());
-				i++;
-				} 
-			if (key.contains(item.getDesc())) {
+			if (item.getTitle().contains(key)||item.getDesc().contains(key)) {
 				System.out.println((l.indexOf(item)+1)+". "+"[ " + item.getCategory() +" ] : "+ item.getTitle()+" - "+ item.getDesc() +" - "+ item.getCurrent_date());
 				i++;
 				} 
