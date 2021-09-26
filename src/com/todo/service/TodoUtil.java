@@ -102,6 +102,7 @@ public class TodoUtil {
 				TodoItem t = new TodoItem(new_category , new_title, new_description, new_duedate);
 				l.addItem(t);
 				System.out.println("수정되었습니다.");
+				break;
 			}
 		}
 		}
