@@ -103,7 +103,6 @@ public class TodoUtil {
 				l.addItem(t);
 				System.out.println("수정되었습니다.");
 			}
-				System.out.println("없는 번호입니다.");
 		}
 		}
 		// 번호를 받아서 수정하도록 
