@@ -14,7 +14,7 @@ public class TodoMain {
 		TodoList l = new TodoList();
 		//l.importData("todoList.txt");
 
-		// TodoUtil.loadList(l, "todoList.txt");
+		//TodoUtil.loadList(l, "todoList.txt");
 		boolean isList = false;
 		boolean quit = false;
 
@@ -46,7 +46,8 @@ public class TodoMain {
 				break;
 
 			case "ls_name_asc":
-				l.sortByName();
+				//l.sortByName();
+				TodoUtil.listAll(l, "title", 1);
 				System.out.println("제목순으로 정렬하였습니다.");
 				isList = true; // 여기서 플래그 변수로 사용해줬다.
 				break;
@@ -85,6 +86,18 @@ public class TodoMain {
 			case "find_cate":
 				String cate = sc.nextLine().trim();
 				TodoUtil.findCateList(l, cate);
+				break;
+			//comp작업
+			case "comp":
+				int id = sc.nextInt();
+				TodoUtil.completeItem(l,id);
+				break;
+			case "uncomp":
+				id = sc.nextInt();
+				TodoUtil.uncompleteItem(l,id);
+				break;
+			case "ls_comp":
+				TodoUtil.listComp(l,1);
 				break;
 			default:
 				System.out.println("정확한 명령어를 입력하세요. (도움말 - help)");

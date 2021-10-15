@@ -14,9 +14,50 @@ import com.todo.service.TodoSortByDate;
 import com.todo.service.TodoSortByName;
 
 public class TodoList {
-	private List<TodoItem> list;
-	Connection conn;
 	
+
+
+
+
+	
+
+	private List<TodoItem> list;
+
+
+	Connection conn;
+
+	public ArrayList<TodoItem> getList() {
+		ArrayList<TodoItem> list = new ArrayList<TodoItem>();
+		Statement stmt;
+		try {
+			stmt = conn.createStatement();
+			String sql ="SELECT * FROM list";
+			ResultSet rs = stmt.executeQuery(sql);
+			while(rs.next()) {
+				int id =rs.getInt("id");
+				String category = rs.getString("category");
+				String title = rs.getString("title");
+				String description = rs.getString("memo");
+				String due_date = rs.getString("due_date");
+				String current_date = rs.getString("current_date");
+				String teamwork = rs.getString("teamwork");
+				int priority = rs.getInt("priority");
+				int is_comp =rs.getInt("is_comp");
+				TodoItem t = new TodoItem(title, description, category, due_date, teamwork, priority, is_comp);
+				t.setId(id);
+				t.setCurrent_date(current_date);
+				list.add(t);
+			}
+			stmt.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return list;
+	}
+	
+	public List<TodoItem> getList2() {
+		return list;
+	}
 	public ArrayList<TodoItem> getList(String keyword) {
 		ArrayList<TodoItem> list = new ArrayList<TodoItem>();
 		PreparedStatement pstmt;
@@ -34,12 +75,17 @@ public class TodoList {
 				String description = rs.getString("memo");
 				String due_date = rs.getString("due_date");
 				String current_date = rs.getString("current_date");
-				TodoItem t = new TodoItem(title, description, category, due_date);
+				String teamwork = rs.getString("teamwork");
+				int priority = rs.getInt("priority");
+				int is_comp =rs.getInt("is_comp");
+				TodoItem t = new TodoItem(title, description, category, due_date, teamwork, priority, is_comp);
+				t.setId(id);
 				t.setId(id);
 				t.setCurrent_date(current_date);
 				list.add(t);
-				pstmt.close();
+				
 			}
+			pstmt.close();
 		} catch (Exception e) {
 			// TODO: handle exception
 		}
@@ -59,7 +105,7 @@ public class TodoList {
 
 
 	public int addItem(TodoItem t) {
-		String sql = "insert into list (title, category, memo,  due_date,current_date )" + " values (?,?,?,?,?);";
+		String sql = "insert into list (title, category, memo,  due_date,current_date,teamwork,priority )" + " values (?,?,?,?,?,?,?);";
 		PreparedStatement pstmt;
 		int count= 0;
 		try {
@@ -69,6 +115,9 @@ public class TodoList {
 			pstmt.setString(2,t.getCategory());
 			pstmt.setString(5,t.getCurrent_date());
 			pstmt.setString(4,t.getDue_date());
+			pstmt.setString(6,t.getTeamwork());
+			pstmt.setLong(7,t.getPriority());
+			
 			count = pstmt.executeUpdate();
 			pstmt.close();
 		} catch (SQLException e) {
@@ -94,7 +143,7 @@ public class TodoList {
 	}
 
 	public int updateItem(TodoItem t) {
-		String sql ="Update list set title =?, memo =?, category=?, current_date =?, due_date=?" + " where id =?;";
+		String sql ="Update list set title =?, memo =?, category=?, current_date =?, due_date=?, teamwork =?, priority=?" + " where id =?;";
 		PreparedStatement pstmt;
 		int count = 0;
 		try {
@@ -104,7 +153,9 @@ public class TodoList {
 			pstmt.setString(3, t.getCategory());
 			pstmt.setString(4, t.getCurrent_date());
 			pstmt.setString(5, t.getDue_date());
-			pstmt.setInt(6, t.getId());
+			pstmt.setInt(8, t.getId());
+			pstmt.setString(6, t.getTeamwork());
+			pstmt.setInt(7, t.getPriority());
 			count = pstmt.executeUpdate();
 			pstmt.close();
 		} catch (SQLException e) {
@@ -113,31 +164,6 @@ public class TodoList {
 		return count;
 	}
 
-	public ArrayList<TodoItem> getList() {
-		ArrayList<TodoItem> list = new ArrayList<TodoItem>();
-		Statement stmt;
-		try {
-			stmt = conn.createStatement();
-			String sql ="SELECT * FROM list";
-			ResultSet rs = stmt.executeQuery(sql);
-			while(rs.next()) {
-				int id =rs.getInt("id");
-				String category = rs.getString("category");
-				String title = rs.getString("title");
-				String description = rs.getString("memo");
-				String due_date = rs.getString("due_date");
-				String current_date = rs.getString("current_date");
-				TodoItem t = new TodoItem(title, description, category, due_date);
-				t.setId(id);
-				t.setCurrent_date(current_date);
-				list.add(t);
-			}
-			stmt.close();
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-		return list;
-	}
 	
 	public int getCount() {
 		Statement stmt;
@@ -267,7 +293,10 @@ public class TodoList {
 				String description = rs.getString("memo");
 				String due_date = rs.getString("due_date");
 				String current_date = rs.getString("current_date");
-				TodoItem t = new TodoItem(title, description, category, due_date);
+				String teamwork = rs.getString("teamwork");
+				int priority =rs.getInt("priority");
+				int is_comp =rs.getInt("is_comp");
+				TodoItem t = new TodoItem(title, description, category, due_date, teamwork, priority, is_comp);
 				t.setId(id);
 				t.setCurrent_date(current_date);
 				list.add(t);
@@ -297,13 +326,77 @@ public class TodoList {
 				String description = rs.getString("memo");
 				String due_date = rs.getString("due_date");
 				String current_date = rs.getString("current_date");
-				TodoItem t = new TodoItem(title, description, category, due_date);
+				String teamwork = rs.getString("teamwork");
+				int priority =rs.getInt("priority");
+				int is_comp =rs.getInt("is_comp");
+				TodoItem t = new TodoItem(title, description, category, due_date, teamwork, priority, is_comp);
 				t.setId(id);
 				t.setCurrent_date(current_date);
 				list.add(t);
 			}
 			stmt.close();
 		} catch (Exception e) {
+			// TODO: handle exception
+		}
+		return list;
+	}
+
+	public int completeItem(int id) {
+		String sql ="Update list set is_comp=?" + " where id =?;";
+		PreparedStatement pstmt;
+		int count = 0;
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, 1);
+			pstmt.setInt(2, id);
+			count = pstmt.executeUpdate();
+			pstmt.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return count;
+	}
+	public int uncompleteItem(int id) {
+		String sql ="Update list set is_comp=?" + " where id =?;";
+		PreparedStatement pstmt;
+		int count = 0;
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, 0);
+			pstmt.setInt(2, id);
+			count = pstmt.executeUpdate();
+			pstmt.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return count;
+	}
+	public  ArrayList<TodoItem> getListcomp(int comp) {
+		ArrayList<TodoItem> list = new ArrayList<TodoItem> ();
+		PreparedStatement pstmt;
+		try {
+			String sql ="Select * FROM list WHERE is_comp = ?";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, comp);
+			ResultSet rs = pstmt.executeQuery();
+			while(rs.next()) {
+				int id =rs.getInt("id");
+				String category = rs.getString("category");
+				String title = rs.getString("title");
+				String description = rs.getString("memo");
+				String due_date = rs.getString("due_date");
+				String current_date = rs.getString("current_date");
+				String teamwork = rs.getString("teamwork");
+				int priority =rs.getInt("priority");
+				int is_comp =rs.getInt("is_comp");
+				TodoItem t = new TodoItem(title, description, category, due_date, teamwork, priority, is_comp);
+				t.setId(id);
+				t.setCurrent_date(current_date);
+				list.add(t);
+			}
+			pstmt.close();
+		} 
+		catch (Exception e) {
 			// TODO: handle exception
 		}
 		return list;

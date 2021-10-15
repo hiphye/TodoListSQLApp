@@ -10,20 +10,29 @@ public class TodoItem {
     private String category;
     private String due_date;
     private int id;
+    private String teamwork;
+    private int priority;
+    private int is_comp;
 
     @Override
 	public String toString() {
-		return id  + " [" + category + "]" + title + " - " +   desc+ " - "+ due_date + " - "+ current_date;
-	}
+    	String comp = "";
+    	if(is_comp==1)
+    		comp="[V]";
+		return id  + " [" + category + "]" + title + comp + " - " +   desc+ " - "+ due_date + " - "+ current_date +" - " + teamwork + " - "+ priority;
+	} //is_comp가 입력되면 1을 반환하고, 1일때 체크표시가 출력되는 구조
 
 
-	public TodoItem(String title, String desc, String category, String due_date){
+	public TodoItem(String title, String desc, String category, String due_date, String teamwork, int priority ,int is_comp){
         this.category = category;
     	this.title=title;
         this.desc=desc;
         SimpleDateFormat f = new SimpleDateFormat("yyyy/MM/dd kk:mm:ss"); //날짜 포맷을 작성해주는것.
         this.current_date= f.format( new Date() ); //포맷메소드에 맞춰주는것
         this.due_date = due_date;
+        this.teamwork = teamwork;
+        this.priority = priority;
+        this.is_comp=is_comp;
     }
     
  
@@ -37,7 +46,7 @@ public class TodoItem {
 
 
 	public String toSaveString() {
-    	return category+ "##" +title + "##" + desc + "##" +due_date+ "##" +current_date+ "\n";
+    	return category+ "##" +title + "##" + desc + "##" +due_date+ "##" +current_date+ "##" +teamwork + "##" + priority +"\n";
     }
     
 	public String getCategory() {
@@ -89,7 +98,31 @@ public class TodoItem {
 	public int getId() {
 		return id;
 	}
-    
+	
+	public String getTeamwork() {
+        return teamwork;
+    }
 
+    public void setTeamwork(String teamwork) {
+        this.teamwork = teamwork;
+    }
+    public int getPriority() {
+        return priority;
+    }
+
+    public void setPriority(int priority) {
+        this.priority = priority;
+    }
+
+
+	public int getIs_comp() {
+		return is_comp;
+	}
+
+
+	public void setIs_comp(int is_comp) {
+		this.is_comp = is_comp;
+	}
+    
     }
 

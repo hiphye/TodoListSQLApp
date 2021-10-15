@@ -12,7 +12,12 @@ public class Menu {
         System.out.println("[ls_name_asc] - 제목순 정렬");
         System.out.println("[ls_name_desc] - 제목역순 정렬");
         System.out.println("[ls_date] - 날짜순 정렬");
+        System.out.println("[ls_cate] - 등록된 카테고리 정렬");
         System.out.println("[find] - 키워드로 항목검색");
+        System.out.println("[find_cate] - 입력한 카테고리를 정렬");
+        System.out.println("[comp] - 항목 완료, comp 띄우고 완료할 id입력");
+        System.out.println("[uncomp] - 항목 완료해재, comp 띄우고 완료할 id입력");
+        System.out.println("[ls_comp] - 완료된 항목 정렬");
         System.out.println("[exit] - 종료");
         
     }
